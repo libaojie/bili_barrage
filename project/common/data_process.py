@@ -48,8 +48,12 @@ class DataProcess(ModelBase):
         开始执行
         :return:
         """
-        read = Read()
-        read.run()
+        read = Read(61076937)
+        read.get_aid()
+        read.get_dm()
+        read.hash_get_all_id()
+        read.id_get_name()
+        read.save_to_mongo()
 
         # str_list = [f'\t{index} : {value[1]}' for index, value in enumerate(self._cmd_list)]
         # LogTool.print('命令列表：\n{0}'.format('\n'.join(str_list)))
