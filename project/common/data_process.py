@@ -30,17 +30,6 @@ class DataProcess(ModelBase):
 
     _cmd_list = [
         (None, ''),
-        # (Dict, '数据字典'),
-        # (Session, '登录'),
-        # (UserAdd, '增加用户'),
-        # (ApplicationAdd, '增加应用'),
-        # (RoleAdd, '增加角色'),
-        # (UserRoleAdd, '用户角色关系'),
-        # (ServiceAdd, '增加服务'),
-        # (RoleServAdd, '角色服务关系'),
-        # (MenuAdd, '增加菜单'),
-        # (RoleMenuAdd, '角色菜单关系'),
-        # (MenuServAdd, '菜单服务关系'),
     ]
 
     def run(self):
@@ -48,12 +37,8 @@ class DataProcess(ModelBase):
         开始执行
         :return:
         """
-        read = Read(61076937)
-        read.get_aid()
-        read.get_dm()
-        read.hash_get_all_id()
-        read.id_get_name()
-        read.save_to_mongo()
+        read = Read()
+        read.run()
 
         # str_list = [f'\t{index} : {value[1]}' for index, value in enumerate(self._cmd_list)]
         # LogTool.print('命令列表：\n{0}'.format('\n'.join(str_list)))
