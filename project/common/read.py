@@ -8,6 +8,7 @@
 @Software   : PyCharm
 """
 import json
+import math
 import re
 
 import requests
@@ -27,6 +28,7 @@ class Read(object):
     hash_url_pattern = 'http://biliquery.typcn.com/api/user/hash/'
     space_url_pattern = 'https://space.bilibili.com/{av}'
     Infou = 'https://space.bilibili.com/ajax/member/GetInfo'
+    pl_url= 'https://api.bilibili.com/x/v2/reply'
 
     def __init__(self):
         # 视频av
@@ -42,7 +44,8 @@ class Read(object):
         self.av = str(61076937)
 
         self.get_aid()
-        self.get_dm()
+        # self.get_dm()
+        self.get_pl()
         self.write_dm_to_json()
 
     # 获取aid
@@ -52,6 +55,48 @@ class Read(object):
         res = self.get_response(url)
         self.cid = str(re.findall('"cid=(\d+)&aid=\d+&', res.text)[0])
         print(self.cid)
+
+    def get_pl(self):
+        ret = self.get_pl_numb()
+        LogTool.print(f"评论总页面：{ret}")
+        pass
+
+    def get_pl_numb(self):
+        video_url_params = {
+            'jsonp': 'jsonp',
+            'pn': '1',  # 页数
+            'type': '1',
+            'oid': self.av,  # 视频id
+            'sort': '0',
+        }
+        ret = requests.get(self.pl_url, params=video_url_params,
+                               headers=headers).json()
+        data = ret['data']
+        # 获得总评论数
+        pages_number = data['page']['count']
+        for replie in data['replies']:
+            # 循环获得次视频下面的评论
+            neirong = replie['content']['message']
+            pass
+        # 获得并返回页数，每页有20条评论，所以返回总页数除20并且向上取整
+        return math.ceil(pages_number / 20)
+
+    # def get_pl_list(self):
+    #     Get_list_params = {
+    #         'mid': UP_main_ID,  # 设置up主ID
+    #         'pagesize': '30',
+    #         'tid': '0',
+    #         'page': Page,  # 第几页
+    #         'keyword': '',
+    #         'order': 'pubdate',
+    #     }
+
+
+
+
+
+
+
 
     # 获取弹幕json数据
     def get_dm(self):
