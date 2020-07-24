@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "lhzl_bili_barrage_venv"
+version = "0.1.0"
+description = "python项目框架"
+authors = ["libaojie <libaojie@qq.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+cx-freeze = "5.1.1"
+xlrd = "==1.1.0"
+requests = "==1.2.0"
+
+[tool.poetry.dev-dependencies]
+[[tool.poetry.source]]
+name = "douban"
+url = "https://pypi.doubanio.com/simple/"
+default = true
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

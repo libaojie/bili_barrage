@@ -41,8 +41,6 @@ class Engine(object):
         cls.dataProcess = DataProcess()
         cls.dataProcess.init()
 
-        from project.common.dataAccess import DataAccess
-        cls.dataAccess = DataAccess()
 
 
 
@@ -53,8 +51,6 @@ class Engine(object):
         :return:
         """
         LogTool.info('引擎启动')
-
-
 
         cls.dataProcess.run()
         cls.destroy()
